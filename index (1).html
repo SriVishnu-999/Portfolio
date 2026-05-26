@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sri Vishnu Dronadula — SOC Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Exo+2:wght@200;300;400;700&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --black:#000305;
+  --red:#ff003c;
+  --cyan:#00ffe7;
+  --green:#00ff41;
+  --amber:#ffb700;
+  --purple:#a855f7;
+  --dim:#050810;
+  --mid:#080d18;
+  --text:#b8cfe0;
+  --mono:'Share Tech Mono',monospace;
+  --head:'Orbitron',sans-serif;
+  --body:'Exo 2',sans-serif;
+  --glow-cyan: 0 0 20px rgba(0,255,231,0.4), 0 0 60px rgba(0,255,231,0.1);
+  --glow-red: 0 0 20px rgba(255,0,60,0.5), 0 0 60px rgba(255,0,60,0.1);
+  --glow-green: 0 0 12px rgba(0,255,65,0.5);
+}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--black);
+  color:var(--text);
+  font-family:var(--body);
+  overflow-x:hidden;
+  cursor:crosshair;
+}
+
+/* ══════════════════════════════════════════════
+   MATRIX CANVAS BG
+══════════════════════════════════════════════ */
+#matrix-canvas{
+  position:fixed;inset:0;z-index:0;
+  opacity:0.04;pointer-events:none;
+}
+
+/* SCANLINES */
+body::after{
+  content:'';position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:repeating-linear-gradient(
+    0deg,
+    transparent,transparent 2px,
+    rgba(0,255,231,0.015) 2px,rgba(0,255,231,0.015) 3px
+  );
+}
+
+/* GRID PATTERN OVERLAY */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(0,255,231,0.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,255,231,0.025) 1px,transparent 1px);
+  background-size:60px 60px;
+}
+
+/* ══════════════════════════════════════════════
+   NAV
+══════════════════════════════════════════════ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:0 3rem;height:60px;
+  background:rgba(0,3,5,0.9);
+  border-bottom:1px solid rgba(0,255,231,0.12);
+  backdrop-filter:blur(20px);
+}
+.nav-logo{
+  font-family:var(--head);font-size:1.1rem;
+  letter-spacing:0.2em;color:var(--cyan);
+  text-decoration:none;
+  text-shadow:var(--glow-cyan);
+  display:flex;align-items:center;gap:0.75rem;
+}
+.nav-logo::before{
+  content:'';width:8px;height:8px;
+  background:var(--red);
+  box-shadow:var(--glow-red);
+  clip-path:polygon(50% 0%,100% 100%,0% 100%);
+  display:inline-block;
+}
+.nav-links{display:flex;gap:0;list-style:none;}
+.nav-links a{
+  font-family:var(--mono);font-size:0.58rem;
+  letter-spacing:0.18em;text-transform:uppercase;
+  color:rgba(184,207,224,0.3);text-decoration:none;
+  padding:0 1.4rem;height:60px;
+  display:flex;align-items:center;
+  border-right:1px solid rgba(0,255,231,0.06);
+  transition:all 0.2s;position:relative;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:0;left:50%;right:50%;
+  height:2px;background:var(--cyan);
+  transition:all 0.25s;opacity:0;
+}
+.nav-links a:hover{color:var(--cyan);}
+.nav-links a:hover::after{left:0;right:0;opacity:1;}
+.nav-status{
+  font-family:var(--mono);font-size:0.56rem;
+  letter-spacing:0.14em;color:var(--green);
+  display:flex;align-items:center;gap:0.6rem;
+  border:1px solid rgba(0,255,65,0.2);
+  padding:0.4rem 0.9rem;
+}
+.nav-status::before{
+  content:'';width:6px;height:6px;border-radius:50%;
+  background:var(--green);box-shadow:var(--glow-green);
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.2;}}
+
+/* ══════════════════════════════════════════════
+   HERO
+══════════════════════════════════════════════ */
+#hero{
+  min-height:100vh;
+  display:grid;grid-template-columns:1fr 380px;
+  position:relative;z-index:2;
+  border-bottom:1px solid rgba(0,255,231,0.07);
+}
+
+.hero-left{
+  padding:9rem 3rem 4rem;
+  display:flex;flex-direction:column;justify-content:center;
+  border-right:1px solid rgba(0,255,231,0.06);
+  position:relative;
+}
+
+/* animated left accent bar */
+.hero-left::before{
+  content:'';position:absolute;top:0;left:0;width:3px;height:100%;
+  background:linear-gradient(180deg,var(--red) 0%,var(--cyan) 50%,transparent 100%);
+  animation:accentFlow 4s ease-in-out infinite alternate;
+}
+@keyframes accentFlow{
+  0%{background:linear-gradient(180deg,var(--red),transparent 70%);}
+  100%{background:linear-gradient(180deg,var(--cyan),var(--red) 60%,transparent);}
+}
+
+.hero-eyebrow{
+  font-family:var(--mono);font-size:0.58rem;letter-spacing:0.28em;
+  color:var(--red);text-transform:uppercase;
+  margin-bottom:2rem;
+  display:flex;align-items:center;gap:1rem;
+}
+.hero-eyebrow span{color:rgba(255,0,60,0.4);}
+.hero-eyebrow::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--red),transparent);}
+
+/* BIG NAME */
+.name-block{margin-bottom:0.6rem;}
+h1{
+  font-family:var(--head);
+  font-size:clamp(4rem,8.5vw,8rem);
+  line-height:0.86;letter-spacing:0.05em;
+  color:#fff;
+}
+.h1-outline{
+  -webkit-text-stroke:1px var(--cyan);
+  color:transparent;
+  text-shadow:none;
+  filter:drop-shadow(0 0 12px rgba(0,255,231,0.35));
+}
+.hero-role{
+  font-family:var(--head);font-size:clamp(0.8rem,1.5vw,1.2rem);
+  letter-spacing:0.25em;color:rgba(184,207,224,0.18);
+  margin-bottom:3rem;text-transform:uppercase;
+}
+
+.hero-bio{
+  font-size:0.95rem;line-height:1.9;
+  color:rgba(184,207,224,0.48);
+  max-width:540px;
+  border-left:2px solid var(--red);
+  padding-left:1.5rem;margin-bottom:3rem;
+  font-weight:300;
+}
+.hero-bio strong{color:var(--cyan);font-weight:600;}
+
+/* THREAT LEVEL BADGE */
+.threat-badge{
+  display:inline-flex;align-items:center;gap:1rem;
+  border:1px solid rgba(255,0,60,0.35);
+  background:rgba(255,0,60,0.04);
+  padding:0.6rem 1.2rem;margin-bottom:2rem;
+  font-family:var(--mono);font-size:0.58rem;letter-spacing:0.15em;
+  color:var(--red);
+}
+.threat-badge::before{
+  content:'▲';font-size:0.7rem;
+  animation:pulse 1.5s infinite;
+}
+
+.cta-row{display:flex;gap:0;flex-wrap:wrap;}
+.cta-btn{
+  font-family:var(--mono);font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;
+  padding:0.9rem 1.6rem;text-decoration:none;
+  border:1px solid rgba(0,255,231,0.22);color:var(--cyan);
+  transition:all 0.22s;position:relative;overflow:hidden;display:inline-block;
+}
+.cta-btn::before{
+  content:'';position:absolute;inset:0;
+  background:var(--cyan);transform:translateX(-101%);transition:transform 0.25s;
+}
+.cta-btn:hover::before{transform:translateX(0);}
+.cta-btn:hover{color:var(--black);text-shadow:none;}
+.cta-btn span{position:relative;z-index:1;}
+.cta-btn.solid{background:var(--red);border-color:var(--red);color:#fff;}
+.cta-btn.solid::before{background:#fff;}
+.cta-btn.solid:hover{color:var(--red);}
+
+/* HERO RIGHT — LIVE METRICS */
+.hero-right{
+  padding:9rem 2.5rem 4rem;
+  display:flex;flex-direction:column;justify-content:center;gap:0;
+  position:relative;
+}
+/* hex grid decoration */
+.hero-right::before{
+  content:'';position:absolute;top:50%;right:-20px;
+  width:160px;height:160px;transform:translateY(-50%);
+  background:radial-gradient(ellipse,rgba(0,255,231,0.06) 0%,transparent 70%);
+  pointer-events:none;
+}
+
+.metric-panel{
+  border:1px solid rgba(0,255,231,0.07);
+  padding:1.6rem 1.8rem;
+  margin-bottom:1px;
+  background:rgba(5,8,16,0.8);
+  position:relative;overflow:hidden;
+  transition:all 0.3s;
+}
+.metric-panel:hover{
+  border-color:rgba(0,255,231,0.2);
+  background:rgba(5,8,16,1);
+}
+.metric-panel::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--cyan),transparent);
+  opacity:0;transition:opacity 0.3s;
+}
+.metric-panel:hover::before{opacity:1;}
+
+.metric-label{
+  font-family:var(--mono);font-size:0.52rem;
+  letter-spacing:0.2em;color:rgba(184,207,224,0.22);
+  text-transform:uppercase;margin-bottom:0.6rem;
+}
+.metric-val{
+  font-family:var(--head);font-size:2.6rem;
+  line-height:1;color:#fff;margin-bottom:0.6rem;
+}
+.metric-val span{font-size:1rem;color:var(--cyan);}
+.metric-bar{height:1px;background:rgba(255,255,255,0.04);overflow:hidden;margin-top:0.4rem;}
+.metric-fill{
+  height:100%;
+  background:linear-gradient(90deg,var(--red),var(--cyan));
+  animation:barfill 2s ease-out both;
+  animation-delay:var(--d,0s);
+}
+@keyframes barfill{from{width:0;}}
+
+/* ══════════════════════════════════════════════
+   MARQUEE
+══════════════════════════════════════════════ */
+.marquee-wrap{
+  overflow:hidden;
+  border-top:1px solid rgba(0,255,231,0.07);
+  border-bottom:1px solid rgba(0,255,231,0.07);
+  padding:1rem 0;
+  background:rgba(0,255,65,0.012);
+  position:relative;z-index:2;
+}
+.marquee-track{
+  display:flex;gap:2.5rem;
+  animation:marquee 28s linear infinite;
+  white-space:nowrap;width:max-content;
+}
+.marquee-item{
+  font-family:var(--mono);font-size:0.6rem;
+  letter-spacing:0.14em;color:rgba(0,255,65,0.35);
+  text-transform:uppercase;
+}
+.marquee-item.hi{color:var(--green);text-shadow:0 0 8px rgba(0,255,65,0.4);}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ══════════════════════════════════════════════
+   SECTIONS
+══════════════════════════════════════════════ */
+section{position:relative;z-index:2;}
+.sec-inner{padding:6rem 3rem;}
+.sec-label{
+  font-family:var(--mono);font-size:0.54rem;
+  letter-spacing:0.28em;color:var(--red);
+  text-transform:uppercase;margin-bottom:0.8rem;
+  display:flex;align-items:center;gap:1rem;
+}
+.sec-label::before{content:'//';color:rgba(255,0,60,0.3);}
+.sec-title{
+  font-family:var(--head);
+  font-size:clamp(2.5rem,5vw,5rem);
+  letter-spacing:0.08em;line-height:0.9;
+  color:#fff;margin-bottom:4rem;
+}
+.sec-title .dim{color:rgba(255,255,255,0.08);}
+.sec-title .accent{color:var(--cyan);text-shadow:var(--glow-cyan);}
+
+/* ══════════════════════════════════════════════
+   SKILLS — HEXAGONAL GRID FEEL
+══════════════════════════════════════════════ */
+#skills{background:var(--dim);}
+.skills-mega{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  background:rgba(0,255,231,0.05);
+  border:1px solid rgba(0,255,231,0.05);
+}
+.skill-cell{
+  background:var(--black);padding:2.5rem;
+  position:relative;transition:background 0.25s;
+  overflow:hidden;
+}
+.skill-cell::after{
+  content:'';position:absolute;
+  bottom:-40px;right:-40px;
+  width:120px;height:120px;
+  border:1px solid rgba(0,255,231,0.04);
+  border-radius:50%;
+  transition:all 0.4s;
+}
+.skill-cell:hover{background:#03060f;}
+.skill-cell:hover::after{
+  bottom:-20px;right:-20px;
+  border-color:rgba(0,255,231,0.1);
+  box-shadow:inset 0 0 40px rgba(0,255,231,0.03);
+}
+.skill-cell-num{
+  font-family:var(--head);font-size:5rem;
+  color:rgba(0,255,231,0.03);
+  position:absolute;bottom:0.5rem;right:1rem;
+  line-height:1;pointer-events:none;user-select:none;
+}
+.skill-cell-title{
+  font-family:var(--mono);font-size:0.56rem;
+  letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--cyan);margin-bottom:1.5rem;
+  display:flex;align-items:center;gap:0.6rem;
+}
+.skill-cell-title::before{
+  content:'';width:4px;height:4px;
+  background:var(--cyan);
+  box-shadow:0 0 6px var(--cyan);
+}
+.skill-tags{display:flex;flex-wrap:wrap;gap:0.45rem;}
+.stag{
+  font-family:var(--mono);font-size:0.54rem;letter-spacing:0.08em;
+  padding:0.28rem 0.65rem;
+  border:1px solid rgba(184,207,224,0.08);
+  color:rgba(184,207,224,0.38);
+  transition:all 0.2s;cursor:default;
+}
+.stag:hover{border-color:rgba(0,255,231,0.4);color:var(--cyan);background:rgba(0,255,231,0.04);}
+.stag.hot{border-color:rgba(255,0,60,0.3);color:rgba(255,90,90,0.75);}
+.stag.top{border-color:rgba(0,255,65,0.3);color:rgba(0,255,65,0.8);}
+.stag.hot:hover{border-color:var(--red);color:var(--red);}
+
+/* ══════════════════════════════════════════════
+   PROJECTS — TERMINAL FILE LISTING
+══════════════════════════════════════════════ */
+#projects{background:var(--black);}
+.proj-terminal-header{
+  font-family:var(--mono);font-size:0.6rem;
+  letter-spacing:0.12em;color:rgba(0,255,65,0.35);
+  padding:1.2rem 3rem;
+  border-bottom:1px solid rgba(255,255,255,0.04);
+  display:flex;gap:3rem;
+}
+.proj-item{
+  display:grid;grid-template-columns:72px 1fr auto;
+  border-bottom:1px solid rgba(255,255,255,0.04);
+  transition:all 0.25s;position:relative;overflow:hidden;
+}
+.proj-item::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:2px;
+  background:var(--cyan);transform:scaleY(0);transform-origin:top;
+  transition:transform 0.4s;
+}
+.proj-item:hover::before{transform:scaleY(1);}
+.proj-item:hover{background:rgba(0,255,231,0.012);}
+
+.proj-index{
+  font-family:var(--head);font-size:0.8rem;
+  letter-spacing:0.1em;color:rgba(0,255,231,0.1);
+  padding:2.5rem 1rem;
+  border-right:1px solid rgba(255,255,255,0.04);
+  display:flex;align-items:flex-start;justify-content:center;
+}
+.proj-body{padding:2.5rem 3rem;}
+.proj-tags{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.9rem;}
+.ptag{
+  font-family:var(--mono);font-size:0.52rem;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--amber);border:1px solid rgba(255,183,0,0.2);
+  padding:0.2rem 0.55rem;
+}
+.proj-title{
+  font-family:var(--head);font-size:1.7rem;
+  letter-spacing:0.06em;color:#fff;
+  margin-bottom:0.8rem;line-height:1;
+}
+.proj-desc{
+  font-size:0.88rem;line-height:1.9;
+  color:rgba(184,207,224,0.38);
+  max-width:640px;margin-bottom:1.5rem;font-weight:300;
+}
+.proj-metrics{display:flex;gap:0.5rem;flex-wrap:wrap;}
+.pm{
+  font-family:var(--mono);font-size:0.56rem;
+  letter-spacing:0.07em;
+  background:rgba(0,255,65,0.04);
+  border:1px solid rgba(0,255,65,0.18);
+  color:var(--green);padding:0.28rem 0.75rem;
+}
+.proj-action{
+  padding:2.5rem 2rem;
+  display:flex;align-items:center;
+  border-left:1px solid rgba(255,255,255,0.04);
+}
+.proj-link{
+  font-family:var(--mono);font-size:0.56rem;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:rgba(0,255,231,0.3);text-decoration:none;
+  writing-mode:vertical-rl;transition:all 0.2s;
+}
+.proj-link:hover{color:var(--cyan);text-shadow:var(--glow-cyan);}
+
+/* CVE STYLE BADGE */
+.cve-badge{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  font-family:var(--mono);font-size:0.52rem;
+  letter-spacing:0.1em;
+  border:1px solid rgba(168,85,247,0.3);
+  color:rgba(168,85,247,0.8);
+  padding:0.2rem 0.55rem;
+  margin-left:0.4rem;
+}
+
+/* ══════════════════════════════════════════════
+   CERTS
+══════════════════════════════════════════════ */
+#certs{background:var(--dim);}
+.cert-list{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1px;
+  background:rgba(0,255,231,0.04);
+  border:1px solid rgba(0,255,231,0.04);
+}
+.cert-item{
+  background:var(--black);padding:2.5rem;
+  display:flex;gap:2rem;align-items:flex-start;
+  transition:all 0.25s;position:relative;
+}
+.cert-item::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--red),var(--cyan),transparent);
+  opacity:0;transition:opacity 0.3s;
+}
+.cert-item:hover{background:#03060f;}
+.cert-item:hover::before{opacity:1;}
+.cert-badge{
+  font-family:var(--head);font-size:2rem;
+  width:48px;text-align:center;flex-shrink:0;
+  color:var(--cyan);
+  text-shadow:var(--glow-cyan);
+}
+.cert-title{
+  font-family:var(--body);font-weight:700;
+  font-size:1rem;color:#fff;margin-bottom:0.3rem;
+}
+.cert-org{
+  font-family:var(--mono);font-size:0.56rem;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--amber);margin-bottom:0.8rem;
+}
+.cert-desc{
+  font-size:0.84rem;line-height:1.78;
+  color:rgba(184,207,224,0.35);font-weight:300;
+}
+.cert-pill{
+  display:inline-block;font-family:var(--mono);
+  font-size:0.52rem;letter-spacing:0.12em;text-transform:uppercase;
+  background:rgba(0,255,65,0.06);
+  border:1px solid rgba(0,255,65,0.2);
+  color:var(--green);padding:0.22rem 0.65rem;margin-top:0.6rem;
+}
+
+/* ══════════════════════════════════════════════
+   THREAT INTEL PANEL (replaces timeline)
+══════════════════════════════════════════════ */
+#intel{background:var(--black);}
+.intel-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1px;
+  background:rgba(0,255,231,0.05);
+  border:1px solid rgba(0,255,231,0.05);
+  margin-top:-1rem;
+}
+.intel-card{
+  background:var(--black);padding:2.5rem;
+  position:relative;overflow:hidden;transition:all 0.3s;
+}
+.intel-card:hover{background:#03060f;}
+.intel-card-header{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  margin-bottom:1.5rem;
+}
+.intel-card-icon{
+  font-family:var(--head);font-size:2.2rem;
+  color:var(--red);text-shadow:var(--glow-red);
+  line-height:1;
+}
+.intel-card-status{
+  font-family:var(--mono);font-size:0.52rem;
+  letter-spacing:0.12em;text-transform:uppercase;
+  padding:0.25rem 0.7rem;
+}
+.intel-card-status.active{
+  border:1px solid rgba(0,255,65,0.3);
+  color:var(--green);background:rgba(0,255,65,0.05);
+}
+.intel-card-status.certified{
+  border:1px solid rgba(0,255,231,0.25);
+  color:var(--cyan);background:rgba(0,255,231,0.04);
+}
+.intel-card-status.ranked{
+  border:1px solid rgba(255,183,0,0.3);
+  color:var(--amber);background:rgba(255,183,0,0.04);
+}
+.intel-card-status.deployed{
+  border:1px solid rgba(255,0,60,0.3);
+  color:var(--red);background:rgba(255,0,60,0.04);
+}
+.intel-card-title{
+  font-family:var(--head);font-size:1.5rem;
+  letter-spacing:0.06em;color:#fff;margin-bottom:0.4rem;line-height:1;
+}
+.intel-card-sub{
+  font-family:var(--mono);font-size:0.56rem;
+  letter-spacing:0.15em;color:var(--cyan);
+  text-transform:uppercase;margin-bottom:1rem;
+}
+.intel-card-body{
+  font-size:0.88rem;line-height:1.85;
+  color:rgba(184,207,224,0.38);font-weight:300;
+}
+.intel-stat-row{
+  display:flex;gap:2rem;margin-top:1.5rem;
+  padding-top:1.5rem;
+  border-top:1px solid rgba(255,255,255,0.04);
+}
+.intel-stat{display:flex;flex-direction:column;gap:0.2rem;}
+.intel-stat-val{
+  font-family:var(--head);font-size:1.6rem;color:#fff;line-height:1;
+}
+.intel-stat-val span{font-size:0.9rem;color:var(--cyan);}
+.intel-stat-lbl{
+  font-family:var(--mono);font-size:0.5rem;
+  letter-spacing:0.14em;color:rgba(184,207,224,0.22);
+  text-transform:uppercase;
+}
+
+/* ══════════════════════════════════════════════
+   CONTACT
+══════════════════════════════════════════════ */
+#contact{background:var(--dim);}
+.contact-split{
+  display:grid;grid-template-columns:1fr 1fr;gap:0;
+}
+.contact-left{padding:0 3rem 0 0;border-right:1px solid rgba(0,255,231,0.07);}
+.contact-left p{
+  font-size:0.92rem;line-height:1.95;
+  color:rgba(184,207,224,0.38);
+  margin-bottom:2rem;font-weight:300;
+}
+.contact-left strong{color:var(--cyan);font-weight:600;}
+
+.clink{
+  display:flex;align-items:center;gap:1.5rem;
+  padding:1rem 0;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  text-decoration:none;transition:all 0.22s;
+  color:rgba(184,207,224,0.4);
+}
+.clink:hover{color:var(--cyan);padding-left:0.8rem;}
+.clink-icon{
+  font-family:var(--mono);font-size:0.56rem;
+  letter-spacing:0.15em;color:var(--red);
+  text-transform:uppercase;min-width:56px;
+}
+.clink-val{font-size:0.9rem;font-weight:400;}
+
+/* TERMINAL */
+.contact-right{padding:0 0 0 3rem;}
+.terminal{
+  background:#000;
+  border:1px solid rgba(0,255,231,0.12);
+  font-family:var(--mono);
+  position:relative;overflow:hidden;
+}
+.terminal::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(0,255,231,0.02) 0%,transparent 100%);
+  pointer-events:none;
+}
+.term-bar{
+  background:rgba(0,255,231,0.04);
+  border-bottom:1px solid rgba(0,255,231,0.1);
+  padding:0.65rem 1rem;
+  display:flex;align-items:center;gap:0.5rem;
+}
+.dot{width:10px;height:10px;border-radius:50%;}
+.dr{background:#ff5f56;} .dy{background:#ffbd2e;} .dg{background:#27c93f;}
+.term-title{
+  font-size:0.56rem;letter-spacing:0.1em;
+  color:rgba(184,207,224,0.22);margin-left:0.5rem;
+}
+.term-body{padding:1.5rem;}
+.tline{font-size:0.68rem;line-height:2;color:#334455;}
+.tp{color:var(--cyan);}
+.tc{color:var(--green);}
+.tv{color:#dde8ee;}
+.ta{color:rgba(0,255,231,0.55);text-decoration:none;}
+.ta:hover{color:var(--cyan);}
+.tco{color:rgba(184,207,224,0.18);}
+.blink{
+  display:inline-block;width:7px;height:0.85em;
+  background:var(--cyan);vertical-align:text-bottom;
+  animation:blink 1s step-end infinite;
+}
+@keyframes blink{50%{opacity:0;}}
+
+/* ══════════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════════ */
+footer{
+  background:var(--black);
+  border-top:1px solid rgba(0,255,231,0.07);
+  padding:1.4rem 3rem;
+  display:flex;justify-content:space-between;align-items:center;
+  position:relative;z-index:2;
+}
+.foot-l{
+  font-family:var(--mono);font-size:0.54rem;
+  letter-spacing:0.1em;color:rgba(184,207,224,0.16);
+}
+.foot-r{
+  font-family:var(--mono);font-size:0.54rem;
+  letter-spacing:0.1em;color:rgba(0,255,65,0.35);
+  display:flex;align-items:center;gap:0.5rem;
+}
+.foot-r::before{
+  content:'';width:5px;height:5px;border-radius:50%;
+  background:var(--green);box-shadow:var(--glow-green);
+  animation:pulse 2s infinite;
+}
+
+/* ══════════════════════════════════════════════
+   REVEAL ANIMATIONS
+══════════════════════════════════════════════ */
+.reveal{
+  opacity:0;transform:translateY(24px);
+  transition:opacity 0.6s ease,transform 0.6s ease;
+}
+.reveal.on{opacity:1;transform:none;}
+
+/* ══════════════════════════════════════════════
+   GLITCH EFFECT ON NAME
+══════════════════════════════════════════════ */
+.glitch{position:relative;}
+.glitch::before,.glitch::after{
+  content:attr(data-text);
+  position:absolute;top:0;left:0;
+  font-family:var(--head);
+  font-size:inherit;line-height:inherit;
+  letter-spacing:inherit;
+  width:100%;
+}
+.glitch::before{
+  color:var(--red);
+  animation:glitch1 3.5s infinite;
+  clip-path:polygon(0 0,100% 0,100% 35%,0 35%);
+}
+.glitch::after{
+  color:var(--cyan);
+  animation:glitch2 3.5s infinite;
+  clip-path:polygon(0 65%,100% 65%,100% 100%,0 100%);
+}
+@keyframes glitch1{
+  0%,90%,100%{transform:none;opacity:0;}
+  92%{transform:translate(-3px,0);opacity:0.7;}
+  94%{transform:translate(3px,0);opacity:0.7;}
+  96%{transform:translate(-1px,0);opacity:0.7;}
+  98%{transform:none;opacity:0;}
+}
+@keyframes glitch2{
+  0%,90%,100%{transform:none;opacity:0;}
+  93%{transform:translate(3px,0);opacity:0.6;}
+  95%{transform:translate(-3px,0);opacity:0.6;}
+  97%{transform:translate(1px,0);opacity:0.6;}
+  99%{transform:none;opacity:0;}
+}
+
+/* ══════════════════════════════════════════════
+   HEX BADGES
+══════════════════════════════════════════════ */
+.hex-stat{
+  display:inline-flex;flex-direction:column;align-items:center;
+  gap:0.3rem;padding:1rem;
+}
+.hex-val{
+  font-family:var(--head);font-size:2rem;color:#fff;line-height:1;
+}
+.hex-val span{font-size:0.9rem;color:var(--cyan);}
+.hex-lbl{
+  font-family:var(--mono);font-size:0.5rem;
+  letter-spacing:0.15em;color:rgba(184,207,224,0.22);
+  text-transform:uppercase;text-align:center;
+}
+
+/* ══════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════ */
+@media(max-width:860px){
+  #hero{grid-template-columns:1fr;}
+  .hero-right{display:none;}
+  nav ul{display:none;}
+  .skills-mega{grid-template-columns:1fr 1fr;}
+  .cert-list{grid-template-columns:1fr;}
+  .intel-grid{grid-template-columns:1fr;}
+  .contact-split{grid-template-columns:1fr;}
+  .contact-right{padding:3rem 0 0;}
+  .contact-left{padding:0 0 2rem;border-right:none;border-bottom:1px solid rgba(0,255,231,0.07);}
+  .sec-inner{padding:4rem 1.5rem;}
+  nav{padding:0 1.5rem;}
+  .proj-item{grid-template-columns:48px 1fr;}
+  .proj-action{display:none;}
+}
+</style>
+</head>
+<body>
+
+<canvas id="matrix-canvas"></canvas>
+
+<nav>
+  <a href="#hero" class="nav-logo">SVD</a>
+  <ul class="nav-links">
+    <li><a href="#skills">Arsenal</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#certs">Certs</a></li>
+    <li><a href="#intel">Intel</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-status">Available for hire</div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow"><span>[</span>SOC Engineer<span>]</span> &middot; SIEM Specialist &middot; Ethical Hacker</div>
+    <div class="name-block">
+      <h1 class="glitch" data-text="SRI">SRI</h1>
+      <h1 class="glitch" data-text="VISHNU">VISHNU</h1>
+      <h1><span class="h1-outline">DRONADULA</span></h1>
+    </div>
+    <div class="hero-role">Threat Detection &bull; Automated Response &bull; Red Team Recon</div>
+
+    <div class="threat-badge">CLEARANCE LEVEL: SENIOR SOC &bull; THREAT HUNTER</div>
+
+    <p class="hero-bio">
+      CS undergraduate at KL University <strong>(CGPA 9.2)</strong> who doesn't wait for a job to start building. Deployed real-time SOAR platforms, Wazuh XDR pipelines processing <strong>3,871 events/24hr</strong>, and Splunk detections replicating Tier 1 SOC workflows — all solo, all in production, all with GitHub links.
+    </p>
+    <div class="cta-row">
+      <a href="https://github.com/SriVishnu-999" class="cta-btn solid" target="_blank"><span>&#9658; GitHub</span></a>
+      <a href="https://www.linkedin.com/in/sri-vishnu-dronadula-a429b2259/" class="cta-btn" target="_blank"><span>LinkedIn</span></a>
+      <a href="mailto:dronadulasrivishnu@gmail.com" class="cta-btn"><span>Email</span></a>
+      <a href="https://tryhackme.com/p/dronadulasrivish" class="cta-btn" target="_blank"><span>TryHackMe</span></a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="metric-panel">
+      <div class="metric-label">Security Events Processed &mdash; Wazuh XDR</div>
+      <div class="metric-val">3,871<span>/24hr</span></div>
+      <div class="metric-bar"><div class="metric-fill" style="width:97%;--d:0.3s;"></div></div>
+    </div>
+    <div class="metric-panel">
+      <div class="metric-label">Brute-force Alert Noise Reduction</div>
+      <div class="metric-val">83<span>%</span></div>
+      <div class="metric-bar"><div class="metric-fill" style="width:83%;--d:0.6s;"></div></div>
+    </div>
+    <div class="metric-panel">
+      <div class="metric-label">Automated IP Containment — Zero Manual</div>
+      <div class="metric-val">&lt;60<span>s</span></div>
+      <div class="metric-bar"><div class="metric-fill" style="width:90%;--d:0.9s;"></div></div>
+    </div>
+    <div class="metric-panel">
+      <div class="metric-label">CGPA &mdash; KL University, Hyderabad</div>
+      <div class="metric-val">9.2<span>/10</span></div>
+      <div class="metric-bar"><div class="metric-fill" style="width:92%;--d:1.2s;"></div></div>
+    </div>
+    <div class="metric-panel">
+      <div class="metric-label">TryHackMe Global Ranking</div>
+      <div class="metric-val">Top<span> 2%</span></div>
+      <div class="metric-bar"><div class="metric-fill" style="width:98%;--d:1.5s;"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">SIEM</span><span class="marquee-item">&middot;</span>
+    <span class="marquee-item">Splunk SPL</span><span class="marquee-item">&middot;</span>
+    <span class="marquee-item hi">MITRE ATT&amp;CK</span><span class="marquee-item">&middot;</span>
+    <span class="marquee-item hi">IBM QRadar</span><span class="marquee-item">&middot;</span>
+    <span class="marquee-item">Wazuh XDR</span><span class="marquee-item">&middot;</span>
+    <span class="marquee-item">Python</span><span class="marquee-item">&middot;</span>
+    <span class="marquee-item hi">Ethical Hacking</span><span class="marquee-item">&middot;</span>
+    <span class="marquee-item">Wireshark</span><span class="marquee-item">&middot;</span>
+    <span class="marquee-item hi">SOC Tier 1</span><span class="marquee-item">&middot;</span>
+    <span class="marquee-item">Incident Response</span><span class="marquee-item">&middot;</span>
+    <span class="marquee-item">Docker</span><span class="marquee-item">&middot;</span>
+    <span class="marquee-item">Nmap</span><span class="marquee-item">&middot;</span>
+    <span class="marquee-item hi">IOC Enrichment</span><span class="marquee-item">&middot;</span>
+    <span class="marquee-item">VirusTotal API</span><span class="marquee-item">&middot;</span>
+    <span class="marquee-item">OSINT</span><span class="marquee-item">&middot;</span>
+    <span class="marquee-item hi">Red Team Recon</span><span class="marquee-item">&middot;</span>
+    <span class="marquee-item">Elastic SIEM</span><span class="marquee-item">&middot;</span>
+    <!-- duplicate for seamless loop -->
+    <span class="marquee-item">SIEM</span><span class="marquee-item">&middot;</span>
+    <span class="marquee-item">Splunk SPL</span><span class="marquee-item">&middot;</span>
+    <span class="marquee-item hi">MITRE ATT&amp;CK</span><span class="marquee-item">&middot;</span>
+    <span class="marquee-item hi">IBM QRadar</span><span class="marquee-item">&middot;</span>
+    <span class="marquee-item">Wazuh XDR</span><span class="marquee-item">&middot;</span>
+    <span class="marquee-item">Python</span><span class="marquee-item">&middot;</span>
+    <span class="marquee-item hi">Ethical Hacking</span><span class="marquee-item">&middot;</span>
+    <span class="marquee-item">Wireshark</span><span class="marquee-item">&middot;</span>
+    <span class="marquee-item hi">SOC Tier 1</span><span class="marquee-item">&middot;</span>
+    <span class="marquee-item">Incident Response</span><span class="marquee-item">&middot;</span>
+    <span class="marquee-item">Docker</span><span class="marquee-item">&middot;</span>
+    <span class="marquee-item">Nmap</span><span class="marquee-item">&middot;</span>
+    <span class="marquee-item hi">IOC Enrichment</span><span class="marquee-item">&middot;</span>
+    <span class="marquee-item">VirusTotal API</span><span class="marquee-item">&middot;</span>
+    <span class="marquee-item">OSINT</span><span class="marquee-item">&middot;</span>
+    <span class="marquee-item hi">Red Team Recon</span><span class="marquee-item">&middot;</span>
+    <span class="marquee-item">Elastic SIEM</span><span class="marquee-item">&middot;</span>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="sec-inner">
+    <div class="sec-label reveal">01 &mdash; Arsenal</div>
+    <div class="sec-title reveal">SKILL<br/><span class="dim">MATRIX</span></div>
+    <div class="skills-mega reveal">
+      <div class="skill-cell">
+        <div class="skill-cell-num">01</div>
+        <div class="skill-cell-title">SIEM &amp; XDR</div>
+        <div class="skill-tags">
+          <span class="stag hot">Splunk Enterprise</span><span class="stag hot">IBM QRadar</span>
+          <span class="stag hot">Wazuh v4.14</span><span class="stag">Elastic SIEM</span>
+          <span class="stag">SPL Queries</span><span class="stag">Custom XML Rules</span>
+        </div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-cell-num">02</div>
+        <div class="skill-cell-title">Threat Intelligence</div>
+        <div class="skill-tags">
+          <span class="stag top">MITRE ATT&amp;CK</span><span class="stag top">IOC Enrichment</span>
+          <span class="stag">VirusTotal API</span><span class="stag">AbuseIPDB</span>
+          <span class="stag">CIS Controls</span><span class="stag">Threat Hunting</span>
+        </div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-cell-num">03</div>
+        <div class="skill-cell-title">SOAR &amp; Automation</div>
+        <div class="skill-tags">
+          <span class="stag hot">Python</span><span class="stag hot">Bash / iptables</span>
+          <span class="stag">Node.js</span><span class="stag">Docker Compose</span>
+          <span class="stag">MongoDB</span><span class="stag">WebSocket APIs</span>
+        </div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-cell-num">04</div>
+        <div class="skill-cell-title">Network &amp; Recon</div>
+        <div class="skill-tags">
+          <span class="stag hot">Wireshark</span><span class="stag hot">Nmap</span>
+          <span class="stag">OWASP ZAP</span><span class="stag">DNS Enumeration</span>
+          <span class="stag">WHOIS</span><span class="stag">Subdomain Discovery</span>
+        </div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-cell-num">05</div>
+        <div class="skill-cell-title">Platforms</div>
+        <div class="skill-tags">
+          <span class="stag top">Kali Linux</span><span class="stag">Parrot OS</span>
+          <span class="stag">Ubuntu</span><span class="stag">Windows Server</span>
+          <span class="stag">Event IDs 4624/4625</span>
+        </div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-cell-num">06</div>
+        <div class="skill-cell-title">Cloud &amp; DevOps</div>
+        <div class="skill-tags">
+          <span class="stag">AWS</span><span class="stag">Azure</span>
+          <span class="stag">Google Cloud</span><span class="stag">Docker</span>
+          <span class="stag">SDLC</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="sec-inner" style="padding-bottom:0;">
+    <div class="sec-label reveal">02 &mdash; Work</div>
+    <div class="sec-title reveal">PROJECTS<br/><span class="dim">&amp; LABS</span></div>
+  </div>
+  <div class="proj-terminal-header reveal">
+    <span>&#9670; REPOSITORY INDEX</span>
+    <span>4 DEPLOYMENTS</span>
+    <span>STATUS: LIVE</span>
+  </div>
+
+  <div class="proj-item reveal">
+    <div class="proj-index">01</div>
+    <div class="proj-body">
+      <div class="proj-tags">
+        <span class="ptag">SOAR</span><span class="ptag">Python</span><span class="ptag">Docker</span><span class="ptag">Node.js</span><span class="ptag">MongoDB</span>
+        <span class="cve-badge">ENTERPRISE-GRADE</span>
+      </div>
+      <div class="proj-title">Enterprise SOAR v2</div>
+      <p class="proj-desc">Real-time SOC automation platform auto-classifying IOC severity at sub-second latency. VirusTotal + AbuseIPDB enrichment via parallel API pipelines. Live dashboard: WebSocket alerts, Chart.js analytics, Leaflet global threat map, audio alerting. Fully Dockerized — zero-config deployment. Built solo as an undergrad to match enterprise tooling built by full engineering teams.</p>
+      <div class="proj-metrics">
+        <span class="pm">Sub-second IOC classification</span>
+        <span class="pm">Low / Med / High / Critical severity</span>
+        <span class="pm">Zero-config Docker deploy</span>
+      </div>
+    </div>
+    <div class="proj-action"><a href="https://github.com/SriVishnu-999/AI-Driven-SOAR-Platform-for-Automated-Incident-Response" class="proj-link" target="_blank">View Repo &#8593;</a></div>
+  </div>
+
+  <div class="proj-item reveal">
+    <div class="proj-index">02</div>
+    <div class="proj-body">
+      <div class="proj-tags">
+        <span class="ptag">Wazuh</span><span class="ptag">MITRE ATT&amp;CK</span><span class="ptag">XDR</span><span class="ptag">Bash</span><span class="ptag">iptables</span>
+        <span class="cve-badge">T1110 · T1078 · T1059</span>
+      </div>
+      <div class="proj-title">Cloud-Scale Threat Detection</div>
+      <p class="proj-desc">Two-tier Wazuh v4.14.2 SIEM/XDR pipeline ingesting 3,871 events/24hr. Three custom XML rules mapped to T1110, T1078, T1059.001. Frequency-timeframe correlation (5 failures/120s) cut brute-force noise by 83%. Bash/iptables automated response achieving sub-60s IP containment — zero manual intervention. Surfaced 2,651 T1078 events and 294 CIS control failures.</p>
+      <div class="proj-metrics">
+        <span class="pm">3,871 events/24hr</span><span class="pm">83% noise reduction</span>
+        <span class="pm">&lt;60s containment</span><span class="pm">2,651 T1078 events</span>
+      </div>
+    </div>
+    <div class="proj-action"><a href="https://github.com/SriVishnu-999/Cloud-Scale-Threat-Detection-Automated-Incident-Response-using-Wazuh-MITRE-ATT-CK" class="proj-link" target="_blank">View Report &#8593;</a></div>
+  </div>
+
+  <div class="proj-item reveal">
+    <div class="proj-index">03</div>
+    <div class="proj-body">
+      <div class="proj-tags">
+        <span class="ptag">Splunk</span><span class="ptag">SPL</span><span class="ptag">Event Correlation</span><span class="ptag">Tier 1 SOC</span>
+      </div>
+      <div class="proj-title">Advanced SOC Detection &mdash; Splunk</div>
+      <p class="proj-desc">Splunk Enterprise 10.2.0 with SPL queries on Event IDs 4625/4624 surfacing 458 correlated events across 5 ATT&CK techniques: T1059.001, T1110, T1078, T1548, T1136. Five automated threshold alerts (&gt;5 failures/account) with 100% MITRE coverage. Full Tier 1 SOC workflow replicated — manual brute-force review eliminated entirely.</p>
+      <div class="proj-metrics">
+        <span class="pm">458 correlated events</span><span class="pm">5 ATT&amp;CK techniques</span><span class="pm">100% automated coverage</span>
+      </div>
+    </div>
+    <div class="proj-action"><a href="https://github.com/SriVishnu-999/ADVANCED-SOC-THREAT-DETECTION-MONITORING" class="proj-link" target="_blank">View Report &#8593;</a></div>
+  </div>
+
+  <div class="proj-item reveal" style="border-bottom:none;">
+    <div class="proj-index">04</div>
+    <div class="proj-body">
+      <div class="proj-tags">
+        <span class="ptag">AI</span><span class="ptag">Recon</span><span class="ptag">OSINT</span><span class="ptag">Pentest</span>
+        <span class="cve-badge">RED TEAM</span>
+      </div>
+      <div class="proj-title">RedHawk AI &mdash; Recon Tool</div>
+      <p class="proj-desc">AI-enhanced recon pipeline: WHOIS, DNS enumeration, port scanning, subdomain discovery. Cut manual recon time by 70%, saving 5+ hours per engagement. AI-driven attack surface analysis interprets exposed CMS, obsolete servers, and open ports into ranked attack vectors — 3x broader coverage with 40% faster severity-ranked pentest reports.</p>
+      <div class="proj-metrics">
+        <span class="pm">70% time reduction</span><span class="pm">3x attack surface</span><span class="pm">40% faster reports</span>
+      </div>
+    </div>
+    <div class="proj-action"><a href="https://github.com/SriVishnu-999/RED-HAWK-AI-Automated-Reconnaissance-Intelligence-Tool-" class="proj-link" target="_blank">View Repo &#8593;</a></div>
+  </div>
+</section>
+
+<!-- CERTS -->
+<section id="certs">
+  <div class="sec-inner">
+    <div class="sec-label reveal">03 &mdash; Credentials</div>
+    <div class="sec-title reveal">CERTIFI<br/><span class="dim">CATIONS</span></div>
+    <div class="cert-list reveal">
+      <div class="cert-item">
+        <div class="cert-badge">Q</div>
+        <div>
+          <div class="cert-title">IBM QRadar SIEM Foundation</div>
+          <div class="cert-org">IBM Skills Build &middot; Credly Verified</div>
+          <p class="cert-desc">Log source configuration, offense management, custom rule creation, real-time threat monitoring.</p>
+          <span class="cert-pill">Credly Badge Verified</span>
+        </div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-badge">&Psi;</div>
+        <div>
+          <div class="cert-title">Cybersecurity Fundamentals</div>
+          <div class="cert-org">IBM Skills Build &middot; Credly Verified</div>
+          <p class="cert-desc">Network security, threat analysis, security operations fundamentals, vulnerability assessment.</p>
+          <span class="cert-pill">Credly Badge Verified</span>
+        </div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-badge">&Delta;</div>
+        <div>
+          <div class="cert-title">MongoDB Associate Developer</div>
+          <div class="cert-org">MongoDB University &middot; Python Driver</div>
+          <p class="cert-desc">Schema design, CRUD, indexing, query optimization. Applied directly in SOAR platform persistence layer.</p>
+          <span class="cert-pill">Credly Badge Verified</span>
+        </div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-badge">&#x2B06;</div>
+        <div>
+          <div class="cert-title">TryHackMe &mdash; SOC Paths</div>
+          <div class="cert-org">TryHackMe &middot; Global Percentile</div>
+          <p class="cert-desc">Log analysis, SIEM monitoring, alert triage, incident response. All SOC learning tracks completed.</p>
+          <span class="cert-pill">Top 2% Global</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THREAT INTEL / OPERATOR PROFILE (replaces timeline) -->
+<section id="intel">
+  <div class="sec-inner" style="padding-bottom:2rem;">
+    <div class="sec-label reveal">04 &mdash; Operator Profile</div>
+    <div class="sec-title reveal">THREAT<br/><span class="dim">INTEL</span></div>
+  </div>
+  <div class="intel-grid reveal">
+    <div class="intel-card">
+      <div class="intel-card-header">
+        <div class="intel-card-icon">&#9670;</div>
+        <div class="intel-card-status active">Deployed</div>
+      </div>
+      <div class="intel-card-title">Enterprise SOAR Platform</div>
+      <div class="intel-card-sub">AI-driven · Docker · Real-time</div>
+      <p class="intel-card-body">Engineered a production-grade SOAR system from scratch: sub-second IOC classification, VirusTotal + AbuseIPDB enrichment, live WebSocket dashboard with global threat map. Zero external framework dependency — every component self-authored.</p>
+      <div class="intel-stat-row">
+        <div class="intel-stat"><div class="intel-stat-val">&lt;1<span>s</span></div><div class="intel-stat-lbl">IOC classify</div></div>
+        <div class="intel-stat"><div class="intel-stat-val">4<span>+</span></div><div class="intel-stat-lbl">Severity tiers</div></div>
+        <div class="intel-stat"><div class="intel-stat-val">0<span></span></div><div class="intel-stat-lbl">Config needed</div></div>
+      </div>
+    </div>
+
+    <div class="intel-card">
+      <div class="intel-card-header">
+        <div class="intel-card-icon">&#9651;</div>
+        <div class="intel-card-status ranked">Top 2% Global</div>
+      </div>
+      <div class="intel-card-title">TryHackMe Operator</div>
+      <div class="intel-card-sub">2023 &mdash; Present · All SOC Paths</div>
+      <p class="intel-card-body">Top 2% globally across thousands of active security practitioners. Alert triage, SIEM monitoring, log analysis, incident response — not a participation trophy. A ranked, earned percentile across real adversarial simulation labs.</p>
+      <div class="intel-stat-row">
+        <div class="intel-stat"><div class="intel-stat-val">Top<span> 2%</span></div><div class="intel-stat-lbl">World rank</div></div>
+        <div class="intel-stat"><div class="intel-stat-val">All<span></span></div><div class="intel-stat-lbl">SOC tracks</div></div>
+        <div class="intel-stat"><div class="intel-stat-val">&#10003;<span></span></div><div class="intel-stat-lbl">Verified</div></div>
+      </div>
+    </div>
+
+    <div class="intel-card">
+      <div class="intel-card-header">
+        <div class="intel-card-icon">&#x2237;</div>
+        <div class="intel-card-status certified">IBM Certified</div>
+      </div>
+      <div class="intel-card-title">IBM QRadar + Cyber Fundamentals</div>
+      <div class="intel-card-sub">2024 · Credly Verified</div>
+      <p class="intel-card-body">QRadar SIEM Foundation + Cybersecurity Fundamentals — Credly verified. Full SOC stack: log ingestion, offense management, custom rule authoring, real-time monitoring. Directly applied to all four flagship projects.</p>
+      <div class="intel-stat-row">
+        <div class="intel-stat"><div class="intel-stat-val">2<span></span></div><div class="intel-stat-lbl">IBM certs</div></div>
+        <div class="intel-stat"><div class="intel-stat-val">&#10003;<span></span></div><div class="intel-stat-lbl">Credly badge</div></div>
+        <div class="intel-stat"><div class="intel-stat-val">&#x221e;<span></span></div><div class="intel-stat-lbl">Applied daily</div></div>
+      </div>
+    </div>
+
+    <div class="intel-card">
+      <div class="intel-card-header">
+        <div class="intel-card-icon">&#x2605;</div>
+        <div class="intel-card-status deployed">9.2 CGPA</div>
+      </div>
+      <div class="intel-card-title">B.E. Computer Science</div>
+      <div class="intel-card-sub">KL University · Hyderabad · Apr 2022 &mdash; Apr 2026</div>
+      <p class="intel-card-body">Specializing in cybersecurity and threat detection. All four flagship projects built during coursework — real deployments, real metrics, no synthetic labs, no tutorial repos. Academic excellence paired with hands-on engineering output.</p>
+      <div class="intel-stat-row">
+        <div class="intel-stat"><div class="intel-stat-val">9.2<span>/10</span></div><div class="intel-stat-lbl">CGPA</div></div>
+        <div class="intel-stat"><div class="intel-stat-val">4<span></span></div><div class="intel-stat-lbl">Live projects</div></div>
+        <div class="intel-stat"><div class="intel-stat-val">0<span></span></div><div class="intel-stat-lbl">Tutorial repos</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="sec-inner">
+    <div class="sec-label reveal">05 &mdash; Reach Out</div>
+    <div class="sec-title reveal">LET'S<br/><span class="dim">CONNECT</span></div>
+    <div class="contact-split reveal">
+      <div class="contact-left">
+        <p>Available for <strong>full-time SOC / Security Engineer roles from April 2026</strong> and internships immediately. Based in Hyderabad — open to relocation and remote.</p>
+        <p>Every project has a live GitHub repo. No black boxes, no vague claims — just code, logs, and measurable outcomes.</p>
+        <div>
+          <a href="mailto:dronadulasrivishnu@gmail.com" class="clink"><span class="clink-icon">Email</span><span class="clink-val">dronadulasrivishnu@gmail.com</span></a>
+          <a href="tel:+917013003837" class="clink"><span class="clink-icon">Mobile</span><span class="clink-val">+91 7013003837</span></a>
+          <a href="https://github.com/SriVishnu-999" class="clink" target="_blank"><span class="clink-icon">GitHub</span><span class="clink-val">github.com/SriVishnu-999</span></a>
+          <a href="https://www.linkedin.com/in/sri-vishnu-dronadula-a429b2259/" class="clink" target="_blank"><span class="clink-icon">LinkedIn</span><span class="clink-val">sri-vishnu-dronadula</span></a>
+          <a href="https://tryhackme.com/p/dronadulasrivish" class="clink" target="_blank"><span class="clink-icon">THM</span><span class="clink-val">dronadulasrivish &middot; Top 2% Global</span></a>
+        </div>
+      </div>
+      <div class="contact-right">
+        <div class="terminal">
+          <div class="term-bar">
+            <div class="dot dr"></div><div class="dot dy"></div><div class="dot dg"></div>
+            <span class="term-title">svd@soc-terminal &mdash; bash</span>
+          </div>
+          <div class="term-body">
+            <div class="tline"><span class="tp">svd@soc</span>:~$ <span class="tc">nmap -sV --script=vuln target.corp</span></div>
+            <div class="tline" style="color:rgba(255,183,0,0.6);">Starting Nmap 7.94 at 2026-04-01 &mdash; Stealth Scan</div>
+            <div class="tline" style="color:rgba(0,255,65,0.5);">PORT&nbsp;&nbsp;&nbsp;STATE&nbsp;SERVICE&nbsp;&nbsp;&nbsp;VERSION</div>
+            <div class="tline" style="color:rgba(255,0,60,0.6);">22/tcp  open  ssh&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OpenSSH 8.9</div>
+            <div class="tline" style="color:rgba(255,0,60,0.6);">443/tcp open  https&nbsp;&nbsp;&nbsp;&nbsp;nginx 1.22.1</div>
+            <br/>
+            <div class="tline"><span class="tp">svd@soc</span>:~$ <span class="tc">cat profile.json</span></div>
+            <div class="tline">{</div>
+            <div class="tline">&nbsp;&nbsp;<span class="tco">"name"</span>: <span class="tv">"Sri Vishnu Dronadula"</span>,</div>
+            <div class="tline">&nbsp;&nbsp;<span class="tco">"role"</span>: <span class="tv">"SOC Engineer / Ethical Hacker"</span>,</div>
+            <div class="tline">&nbsp;&nbsp;<span class="tco">"cgpa"</span>: <span class="tv">9.2</span>,</div>
+            <div class="tline">&nbsp;&nbsp;<span class="tco">"tryhackme"</span>: <span class="tv">"Top 2% Global"</span>,</div>
+            <div class="tline">&nbsp;&nbsp;<span class="tco">"certs"</span>: [<span class="tv">"IBM QRadar"</span>, <span class="tv">"IBM Cyber"</span>, <span class="tv">"MongoDB"</span>],</div>
+            <div class="tline">&nbsp;&nbsp;<span class="tco">"github"</span>: <a href="https://github.com/SriVishnu-999" class="ta" target="_blank">"github.com/SriVishnu-999"</a>,</div>
+            <div class="tline">&nbsp;&nbsp;<span class="tco">"available"</span>: <span class="tv">true</span></div>
+            <div class="tline">}</div>
+            <br/>
+            <div class="tline"><span class="tp">svd@soc</span>:~$ <span class="tc">echo $STATUS</span></div>
+            <div class="tline" style="color:var(--green);">Every claim has a commit. Let's talk.</div>
+            <br/>
+            <div class="tline"><span class="tp">svd@soc</span>:~$ <span class="blink"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="foot-l">&copy; 2026 Sri Vishnu Dronadula &middot; Portfolio built for GitHub Pages</span>
+  <span class="foot-r">Systems operational &middot; Open to hire</span>
+</footer>
+
+<script>
+/* ── MATRIX RAIN ── */
+(function(){
+  const canvas = document.getElementById('matrix-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, cols, drops;
+  const chars = '01アイウエオカキクケコSECURITYHACKERSOCXDRSIEMNMAP<>{}[]|/\\\\';
+
+  function init(){
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+    const fs = 14;
+    cols = Math.floor(W / fs);
+    drops = Array(cols).fill(1);
+  }
+
+  function draw(){
+    ctx.fillStyle = 'rgba(0,3,5,0.04)';
+    ctx.fillRect(0,0,W,H);
+    ctx.fillStyle = '#00ff41';
+    ctx.font = '13px Share Tech Mono';
+    drops.forEach((y,i)=>{
+      const ch = chars[Math.floor(Math.random()*chars.length)];
+      ctx.fillStyle = i%7===0 ? '#00ffe7' : '#00ff41';
+      ctx.fillText(ch, i*14, y*14);
+      if(y*14 > H && Math.random() > 0.975) drops[i] = 0;
+      drops[i]++;
+    });
+  }
+
+  init();
+  window.addEventListener('resize', init);
+  setInterval(draw, 50);
+})();
+
+/* ── REVEAL ON SCROLL ── */
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('on'); obs.unobserve(e.target); }
+  });
+},{threshold:0.08, rootMargin:'0px 0px -40px 0px'});
+
+document.querySelectorAll('.reveal').forEach((el,i)=>{
+  el.style.transitionDelay = (i%5)*0.07+'s';
+  obs.observe(el);
+});
+
+/* ── CURSOR TRAIL ── */
+const trail = [];
+const MAX = 12;
+for(let i=0;i<MAX;i++){
+  const d = document.createElement('div');
+  d.style.cssText=`position:fixed;pointer-events:none;z-index:9999;width:${4+i*0.5}px;height:${4+i*0.5}px;border-radius:50%;background:rgba(0,255,231,${0.5-(i*0.035)});transition:transform 0.1s;top:0;left:0;mix-blend-mode:screen;`;
+  document.body.appendChild(d);
+  trail.push({el:d,x:0,y:0});
+}
+let mx=0,my=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function loop(){
+  trail[0].x+=(mx-trail[0].x)*0.35;
+  trail[0].y+=(my-trail[0].y)*0.35;
+  trail[0].el.style.transform=`translate(${trail[0].x-2}px,${trail[0].y-2}px)`;
+  for(let i=1;i<MAX;i++){
+    trail[i].x+=(trail[i-1].x-trail[i].x)*0.5;
+    trail[i].y+=(trail[i-1].y-trail[i].y)*0.5;
+    trail[i].el.style.transform=`translate(${trail[i].x-2}px,${trail[i].y-2}px)`;
+  }
+  requestAnimationFrame(loop);
+})();
+
+/* ── SIMULATED LIVE THREAT COUNTER ── */
+(function(){
+  const vals = document.querySelectorAll('.metric-val');
+  vals.forEach(v=>{
+    const txt = v.textContent;
+    const num = parseInt(txt.replace(/[^0-9]/g,''));
+    if(isNaN(num)||num<100) return;
+    const span = v.querySelector('span');
+    setInterval(()=>{
+      const jitter = Math.floor(Math.random()*3)-1;
+      const newVal = num + jitter + Math.floor(Math.random()*2);
+      v.childNodes[0].nodeValue = newVal.toLocaleString();
+    },3000);
+  });
+})();
+</script>
+</body>
+</html>
